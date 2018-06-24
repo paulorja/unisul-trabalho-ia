@@ -13,7 +13,7 @@ describe Maze do
     @maze = Maze.new
   end
 
-  context "should have" do
+  context "should be" do
 
     it "height 10" do
       expect(@maze.height).to eq(10)
