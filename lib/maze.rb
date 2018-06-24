@@ -20,6 +20,20 @@ class Maze
     @maze[x-1][y-1]
   end
 
+  def find_cell_pos(find_cell)
+    @maze.each_with_index do |columns, x|
+      columns.each_with_index do |cell, y|
+        if cell.object_id == find_cell.object_id
+          return [x, y]
+        end
+      end
+    end
+  end
+
+  def get_maze
+    @maze
+  end
+
   def filter(cell_class)
     result = []
     @maze.each do |columns|

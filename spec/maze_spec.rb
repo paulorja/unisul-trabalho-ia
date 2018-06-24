@@ -47,6 +47,12 @@ describe Maze do
       expect(big_power_ups.size).to eq(3)
     end
 
+    it "cell pos" do
+      cell = @maze.get_pos(3, 4)
+      pos = @maze.find_cell_pos(cell)
+      expect(pos).to eq([2, 3])
+    end
+
   end
 
 end
