@@ -1,0 +1,3 @@
+class StartPosition < Cell
+
+end

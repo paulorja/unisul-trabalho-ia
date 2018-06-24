@@ -1,0 +1,3 @@
+class Obstacle < Cell
+
+end
