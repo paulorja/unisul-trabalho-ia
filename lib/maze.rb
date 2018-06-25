@@ -5,15 +5,17 @@ class Maze
     @total_obstacles = rand(16) + 10
     @total_small_power_ups = 5
     @total_big_power_ups = 3
+    @start_height = 10
+    @start_width = 10
     randomize 
   end
 
   def height
-    @maze[0].size
+    @maze.size
   end
 
   def width
-    @maze.size
+    @maze[0].size
   end
 
   def get_pos(x, y)
@@ -47,13 +49,13 @@ class Maze
   private
 
   def randomize 
-    10.times { @maze << [] } 
+    @start_width.times { @maze << [] } 
     @maze.each do |columns|
-      10.times { columns << Road.new }
+      @start_height.times { columns << Road.new }
     end
 
     @maze[0][0] = StartPosition.new
-    @maze[9][9] = EndPosition.new
+    @maze[@start_width-1][@start_height-1] = EndPosition.new
 
     while filter(Obstacle).size != @total_obstacles do
       x = rand(height)

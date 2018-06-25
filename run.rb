@@ -13,8 +13,14 @@ require "byebug"
 
 maze = Maze.new
 
-start       = { 'x' => 0, 'y' => 0 }
-destination = { 'x' => 9, 'y' => 9 }
+start_pos = maze.filter(StartPosition)[0]
+start_pos = maze.find_cell_pos(start_pos)
+
+end_pos = maze.filter(EndPosition)[0]
+end_pos = maze.find_cell_pos(end_pos)
+
+start       = { 'x' => start_pos[0], 'y' => start_pos[1] }
+destination = { 'x' => end_pos[0], 'y' => end_pos[1] }
 
 
 obstacles = maze.filter(Obstacle)
@@ -29,21 +35,22 @@ bot = Bot.new
 pathfinder  = Astar.new(start, destination, obstacles_pos, bot)
 result      = pathfinder.search
 
-#obstacle = Astar_Node.new(2, 2, 3, 2, 3, 2)
-#byebug
-
-
-
 painted_paths = []
 
 result.each do |node|
   system('clear')
-  
-  bot.hp = 0 if bot.hp < 0
-  puts "Pontos de vida: #{bot.hp}"
 
-  painted_paths << [node.x, node.y] if bot.hp > 0
-  bot.hp -= 3
+  unless bot.is_killed
+    bot.decrement_hp 3
+    bot.hp += 5 if maze.get_pos(node.x+1, node.y+1).is_a? SmallPowerUp
+    bot.hp += 10 if maze.get_pos(node.x+1, node.y+1).is_a? BigPowerUp 
+    bot.hp = 0 if bot.hp < 0
+    puts "Pontos de vida: #{bot.hp}"
+    painted_paths << [node.x, node.y] 
+  else
+    puts "O robo morreu".red
+  end
+  
   maze.get_maze.each do |columns|
     line = ''
     columns.each do |cell|
