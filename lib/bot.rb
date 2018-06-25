@@ -1,6 +1,6 @@
 class Bot
 
-  attr_reader :hp
+  attr_accessor :hp
 
   def initialize
     @hp = 50

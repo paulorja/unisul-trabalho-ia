@@ -1,12 +1,14 @@
 class Astar
 
-  def initialize(start, destination)
+  def initialize(start, destination, obstacles, bot)
     # create start and destination nodes
     @start_node = Astar_Node.new(start['x'],   start['y'],           -1, -1, -1, -1)
     @dest_node  = Astar_Node.new(destination['x'], destination['y'], -1, -1, -1, -1)
 
     @open_nodes   = [] # conatins all open nodes (nodes to be inspected)
     @closed_nodes = [] # contains all closed nodes (node we've already inspected)
+    @obstacles = obstacles
+    @bot = bot
 
     @open_nodes.push(@start_node) # push the start node
   end
@@ -39,6 +41,7 @@ class Astar
 
   # field passable?
   def passable?(x, y)
+    return false if @obstacles.include?([x, y])
     return true
   end
 
