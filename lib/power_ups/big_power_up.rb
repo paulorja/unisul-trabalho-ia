@@ -1,0 +1,3 @@
+class BigPowerUp < Road
+
+end

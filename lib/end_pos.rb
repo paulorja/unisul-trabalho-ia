@@ -1,0 +1,3 @@
+class EndPosition < Cell
+
+end
